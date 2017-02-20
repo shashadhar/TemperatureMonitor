@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_temp0"
+            android:title="Temperature0" />
+        <item
+            android:id="@+id/nav_temp1"
+            android:title="Temperature1" />
+
+        <item
+            android:id="@+id/nav_temp2"
+            android:title="Temperature2" />
+
+        <item
+            android:id="@+id/nav_temp3"
+            android:title="Temperature3" />
+        <item
+            android:id="@+id/nav_temp4"
+            android:title="Temperature4" />
+        <item
+            android:id="@+id/nav_temp5"
+            android:title="Temperature5" />
+        <item
+            android:id="@+id/nav_temp6"
+            android:title="Temperature6" />
+        <item
+            android:id="@+id/nav_temp7"
+            android:title="Temperature7" />
+        <item
+            android:id="@+id/nav_temp8"
+            android:title="Temperature8" />
+        <item
+            android:id="@+id/nav_temp9"
+            android:title="Temperature9" />
+
+
+    </group>
+
+</menu>
