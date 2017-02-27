@@ -75,6 +75,7 @@ public class BaseActivity extends AppCompatActivity {
                 if (noInternetConnectivityDialog != null) {
                     handler.postDelayed(new CloseDialog(noInternetConnectivityDialog), 300);
                 }
+
                 TemperatureApplication.getApplication().subscribeEvent();
 
             } else {

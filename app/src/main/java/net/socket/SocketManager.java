@@ -31,6 +31,10 @@ public class SocketManager {
     public static final String EVENT_DISCONNECT = "disconnect";
 
     private Socket mSocket;
+    private  static boolean isConnected=false;
+    private  static  boolean isIsConnectedInProgress=false;
+
+
 
     private SocketManager() {
         createSocket();
@@ -62,6 +66,8 @@ public class SocketManager {
         public void call(Object... args) {
             try {
                 if(args!=null) {
+                    isConnected=true;
+                    isIsConnectedInProgress=false;
                     Log.e("OnConnect", args.toString());
                     JSONObject data = (JSONObject) args[0];
                 }
@@ -76,6 +82,8 @@ public class SocketManager {
         public void call(Object... args) {
             try {
                 if(args!=null) {
+                    isConnected=false;
+                    isIsConnectedInProgress=false;
                     Log.e("OnDisConnect", args.toString());
                     JSONObject data = (JSONObject) args[0];
 
@@ -130,12 +138,14 @@ public class SocketManager {
         try {
             mSocket.on(Socket.EVENT_CONNECT_ERROR, onConnectError);
             mSocket.on(Socket.EVENT_CONNECT_TIMEOUT, onConnectError);
-            mSocket.on(EVENT_CONNECTION, onConnect);
+            mSocket.on(Socket.EVENT_CONNECT, onConnect);
+            mSocket.on(Socket.EVENT_DISCONNECT,onDisconnect);
             mSocket.on(EVENT_DATA, onNewMessage);
-           /* for(String sensorName: AllSensors.getInstance().getSensors().keySet()){
+
+            for(String sensorName: AllSensors.getInstance().getSensors().keySet()){
                 mSocket.emit(EVENT_SUBSCRIBE, sensorName);
-            }*/
-            mSocket.emit(EVENT_SUBSCRIBE, "temperature9");
+            }
+           // mSocket.emit(EVENT_SUBSCRIBE, "temperature9");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -145,8 +155,10 @@ public class SocketManager {
 
     public void connectToSocket() {
         try {
-            mSocket.connect();
-
+            if(!isIsConnectedInProgress && !isConnected) {
+                isIsConnectedInProgress = true;
+                mSocket.connect();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
